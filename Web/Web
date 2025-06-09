@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Веб</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin: 0; font-family: Arial; background: #111; color: white; text-align: center; }
+    .section { padding: 60px 20px; }
+    .btn { padding: 15px 30px; background: #2979ff; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    .form-section { display: none; flex-direction: column; gap: 20px; max-width: 400px; margin: auto; }
+    .form-section input, .form-section select { padding: 10px; border-radius: 5px; border: none; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="section">
+    <h1>Твій шлях до арбітражної експертності починається тут!</h1>
+    <p>Натисни «Почати», щоб пройти коротке опитування</p>
+    <button class="btn" onclick="startSurvey()">Почати</button>
+  </div>
+
+  <div id="survey" class="section hidden">
+    <h2>Коротке опитування</h2>
+    <div class="form-section" id="step1">
+      <label>Досвід в арбітражі:</label>
+      <select id="experience">
+        <option value="Так">Так</option>
+        <option value="Ні">Ні</option>
+      </select>
+      <button class="btn" onclick="nextStep('step1', 'step2')">Далі</button>
+    </div>
+
+    <div class="form-section" id="step2" style="display:none;">
+      <label>Час, який можеш приділяти:</label>
+      <select id="time">
+        <option value="1-2 год">1-2 год</option>
+        <option value="3-5 год">3-5 год</option>
+      </select>
+      <button class="btn" onclick="nextStep('step2', 'step3')">Далі</button>
+    </div>
+
+    <div class="form-section" id="step3" style="display:none;">
+      <label>Зручний месенджер:</label>
+      <select id="messenger">
+        <option value="Telegram">Telegram</option>
+        <option value="Viber">Viber</option>
+      </select>
+      <button class="btn" onclick="nextStep('step3', 'finalForm')">Продовжити</button>
+    </div>
+
+    <div class="form-section" id="finalForm" style="display:none;">
+      <input type="text" id="name" placeholder="ПІБ">
+      <input type="tel" id="phone" placeholder="Номер телефону">
+      <input type="email" id="email" placeholder="Email">
+      <button class="btn" onclick="submitForm()">Відправити</button>
+    </div>
+  </div>
+
+  <script>
+    function startSurvey() {
+      document.querySelector('#survey').classList.remove('hidden');
+      document.querySelector('#step1').style.display = 'flex';
+      window.scrollTo({ top: document.querySelector('#survey').offsetTop, behavior: 'smooth' });
+    }
+
+    function nextStep(currentId, nextId) {
+      document.getElementById(currentId).style.display = 'none';
+      document.getElementById(nextId).style.display = 'flex';
+    }
+
+    function submitForm() {
+      const data = {
+        experience: document.getElementById('experience').value,
+        time: document.getElementById('time').value,
+        messenger: document.getElementById('messenger').value,
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+      };
+      console.log("Форма надіслана:", data);
+      alert("Дякуємо! З вами скоро зв'яжуться.");
+    }
+  </script>
+
+</body>
+</html>
