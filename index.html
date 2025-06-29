@@ -197,45 +197,46 @@
   </div>
 
   <div id="finalForm" class="section">
-    <div class="section-inner">
-      <img src="final.jpg" alt="Финальный блок">
-      <div class="form-content">
-        <h2>Пожалуйста, укажите ваши контактные данные для обратной связи:</h2>
-        <input id="name" type="text" placeholder="ФИО">
-        <input id="phone" type="text" placeholder="Номер телефона">
-        <input id="email" type="email" placeholder="Email">
-        <input id="telegram" type="text" placeholder="Никнейм в Telegram">
-        <button class="btn" onclick="sendToSheet()">Отправить</button>
-      </div>
+  <div class="section-inner">
+    <img src="final.jpg" alt="Финальный блок">
+    <div class="form-content">
+      <h2>Пожалуйста, укажите ваши контактные данные для обратной связи:</h2>
+      <input id="name" type="text" placeholder="ФИО">
+      <input id="phone" type="text" placeholder="Номер телефона">
+      <input id="email" type="email" placeholder="Email">
+      <input id="telegram" type="text" placeholder="Никнейм в Telegram">
+      <button class="btn" onclick="sendToSheet()">Отправить</button>
     </div>
   </div>
+</div>
 
-  <script>
-    function nextSection(currentId, nextId) {
-      document.getElementById(currentId).style.display = 'none';
-      document.getElementById(nextId).style.display = 'flex';
-    }
+<script>
+  function nextSection(currentId, nextId) {
+    document.getElementById(currentId).style.display = 'none';
+    document.getElementById(nextId).style.display = 'flex';
+  }
 
-    function sendToSheet() {
-      const data = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        telegram: document.getElementById('telegram').value,
-        hours: document.getElementById('studyHours').value
-      };
+  function sendToSheet() {
+    const data = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      telegram: document.getElementById('telegram').value,
+      hours: document.getElementById('studyHours') ? document.getElementById('studyHours').value : ''
+    };
 
-      fetch('https://script.google.com/macros/s/AKfycbxXw2AwUPR-0qJZRHLAOYTXKyBA_5jMCUlQ7IxrHJia_wviuiTSGiDQ602HB6Tb0dDWYA/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }).then(() => {
-        alert('Спасибо! Данные отправлены.');
-      }).catch(() => {
-        alert('Ошибка при отправке данных.');
-      });
-    }
-  </script>
-</body>
-</html>
+    fetch('https://script.google.com/macros/s/AKfycbxXw2AwUPR-0qJZRHLAOYTXKyBA_5jMCUlQ7IxrHJia_wviuiTSGiDQ602HB6Tb0dDWYA/exec', {
+      method: 'POST',
+      mode: 'no-cors', // no-cors не дозволяє бачити результат запиту
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(() => {
+      alert('Спасибо! Данные отправлены.');
+      nextSection('finalForm', 'intro'); // При бажанні можна повернути на початок або показати інший блок
+    })
+    .catch(() => {
+      alert('Ошибка при отправке данных.');
+    });
+  }
+</script>
