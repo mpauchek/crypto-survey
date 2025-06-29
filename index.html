@@ -188,13 +188,13 @@
     <div class="section-content">
       <h2>📱 Какие мессенджеры для вас удобней для связи?</h2>
       <div class="messenger-options">
-        <button class="messenger-btn" onclick="chooseMessenger('telegram')">
+        <button class="messenger-btn" onclick="selectMessenger('Telegram')">
           <img src="telegram.jpg"> Telegram
         </button>
-        <button class="messenger-btn" onclick="chooseMessenger('whatsapp')">
+        <button class="messenger-btn" onclick="selectMessenger('WhatsApp')">
           <img src="whatsapp.jpg"> WhatsApp
         </button>
-        <button class="messenger-btn" onclick="chooseMessenger('viber')">
+        <button class="messenger-btn" onclick="selectMessenger('Viber')">
           <img src="viber.jpg"> Viber
         </button>
       </div>
@@ -210,28 +210,27 @@
       <input id="name" type="text" placeholder="ФИО">
       <input id="phone" type="text" placeholder="Номер телефона">
       <input id="email" type="email" placeholder="Email">
-      <input id="telegram" type="text" placeholder="Никнейм в Telegram" style="display: none;">
+      <input id="telegramInput" type="text" placeholder="Никнейм в Telegram" style="display: none;">
       <button class="btn" onclick="sendToSheet()">Отправить</button>
     </div>
   </div>
 </div>
 
 <script>
-  let selectedMessenger = '';
+  let messenger = '';
 
-  function chooseMessenger(messenger) {
-    selectedMessenger = messenger;
-    if (messenger === 'telegram') {
-      document.getElementById('telegram').style.display = 'block';
+  function selectMessenger(selected) {
+    messenger = selected;
+    // Показать или скрыть поле для Telegram
+    const telegramInput = document.getElementById('telegramInput');
+    if (selected === 'Telegram') {
+      telegramInput.style.display = 'block';
     } else {
-      document.getElementById('telegram').style.display = 'none';
+      telegramInput.style.display = 'none';
     }
     nextSection('question4', 'finalForm');
   }
-</script>
 
-
-<script>
   function nextSection(currentId, nextId) {
     document.getElementById(currentId).style.display = 'none';
     document.getElementById(nextId).style.display = 'flex';
@@ -242,22 +241,20 @@
       name: document.getElementById('name').value,
       phone: document.getElementById('phone').value,
       email: document.getElementById('email').value,
-      telegram: document.getElementById('telegram').value,
-      hours: document.getElementById('studyHours') ? document.getElementById('studyHours').value : ''
+      telegram: messenger === 'Telegram' ? document.getElementById('telegramInput').value : '',
+      messenger: messenger
     };
 
     fetch('https://script.google.com/macros/s/AKfycbxXw2AwUPR-0qJZRHLAOYTXKyBA_5jMCUlQ7IxrHJia_wviuiTSGiDQ602HB6Tb0dDWYA/exec', {
       method: 'POST',
-      mode: 'no-cors', // no-cors не дозволяє бачити результат запиту
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    })
-    .then(() => {
+    }).then(() => {
       alert('Спасибо! Данные отправлены.');
-      nextSection('finalForm', 'intro'); // При бажанні можна повернути на початок або показати інший блок
-    })
-    .catch(() => {
+    }).catch(() => {
       alert('Ошибка при отправке данных.');
     });
   }
 </script>
+
