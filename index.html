@@ -171,18 +171,18 @@
   </div>
 
   <div id="question3" class="section">
-    <div class="section-inner">
-      <img src="QUESTION_3_enhanced.jpg" alt="crypto">
-      <div class="section-content">
-        <h2>Сколько у тебя есть свободного времени на обучения в неделю?</h2>
-        <input type="text" id="studyHours" placeholder="Введите количество часов...">
-        <br>
-        <button class="btn" onclick="nextSection('question3', 'question4')">Продолжить</button>
-      </div>
+  <div class="section-inner">
+    <img src="QUESTION_3_enhanced.jpg" alt="crypto">
+    <div class="section-content">
+      <h2>Сколько у тебя есть свободного времени на обучения в неделю?</h2>
+      <input type="text" id="studyHours" placeholder="Введите количество часов...">
+      <br>
+      <button class="btn" onclick="nextSection('question3', 'question4')">Продолжить</button>
     </div>
   </div>
+</div>
 
-  <div id="question4" class="section">
+<div id="question4" class="section">
   <div class="section-inner">
     <img src="QUESTION_4.jpg" alt="crypto">
     <div class="section-content">
@@ -221,7 +221,6 @@
 
   function selectMessenger(selected) {
     messenger = selected;
-    // Показать или скрыть поле для Telegram
     const telegramInput = document.getElementById('telegramInput');
     if (selected === 'Telegram') {
       telegramInput.style.display = 'block';
@@ -242,10 +241,11 @@
       phone: document.getElementById('phone').value,
       email: document.getElementById('email').value,
       telegram: messenger === 'Telegram' ? document.getElementById('telegramInput').value : '',
-      messenger: messenger
+      messenger: messenger,
+      hours: document.getElementById('studyHours').value
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbz-zzM3SP8YAtcbc-DwmF4D9ZehJ9xqm6IbR2i-rYJEv8wN8A8iWRYwbWREBsMAhp32Lw/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbzz4lGI6aBPt45nIdNfJDcVZfrKhtFvlvG_dYKmFk6VY5P_UD2v8Tz1b_WtYKGqBLWQlQ/exec', {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
@@ -257,4 +257,5 @@
     });
   }
 </script>
+
 
