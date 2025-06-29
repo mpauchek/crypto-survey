@@ -183,20 +183,26 @@
   </div>
 
   <div id="question4" class="section">
-    <div class="section-inner">
-      <img src="QUESTION_4.jpg" alt="crypto">
-      <div class="section-content">
-        <h2>📱 Какие мессенджеры для вас удобней для связи?</h2>
-        <div class="messenger-options">
-          <button class="messenger-btn" onclick="nextSection('question4', 'finalForm')"><img src="telegram.jpg"> Telegram</button>
-          <button class="messenger-btn" onclick="nextSection('question4', 'finalForm')"><img src="whatsapp.jpg"> WhatsApp</button>
-          <button class="messenger-btn" onclick="nextSection('question4', 'finalForm')"><img src="viber.jpg"> Viber</button>
-        </div>
+  <div class="section-inner">
+    <img src="QUESTION_4.jpg" alt="crypto">
+    <div class="section-content">
+      <h2>📱 Какие мессенджеры для вас удобней для связи?</h2>
+      <div class="messenger-options">
+        <button class="messenger-btn" onclick="chooseMessenger('telegram')">
+          <img src="telegram.jpg"> Telegram
+        </button>
+        <button class="messenger-btn" onclick="chooseMessenger('whatsapp')">
+          <img src="whatsapp.jpg"> WhatsApp
+        </button>
+        <button class="messenger-btn" onclick="chooseMessenger('viber')">
+          <img src="viber.jpg"> Viber
+        </button>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="finalForm" class="section">
+<div id="finalForm" class="section">
   <div class="section-inner">
     <img src="final.jpg" alt="Финальный блок">
     <div class="form-content">
@@ -204,11 +210,26 @@
       <input id="name" type="text" placeholder="ФИО">
       <input id="phone" type="text" placeholder="Номер телефона">
       <input id="email" type="email" placeholder="Email">
-      <input id="telegram" type="text" placeholder="Никнейм в Telegram">
+      <input id="telegram" type="text" placeholder="Никнейм в Telegram" style="display: none;">
       <button class="btn" onclick="sendToSheet()">Отправить</button>
     </div>
   </div>
 </div>
+
+<script>
+  let selectedMessenger = '';
+
+  function chooseMessenger(messenger) {
+    selectedMessenger = messenger;
+    if (messenger === 'telegram') {
+      document.getElementById('telegram').style.display = 'block';
+    } else {
+      document.getElementById('telegram').style.display = 'none';
+    }
+    nextSection('question4', 'finalForm');
+  }
+</script>
+
 
 <script>
   function nextSection(currentId, nextId) {
